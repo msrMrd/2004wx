@@ -9,13 +9,28 @@ use Illuminate\Support\Facades\Redis;
 class TestController extends Controller
 {
     public function index(){
-    $res=Test::get();
-        dump($res);
+        $res=request()->get('echostr','');
+        if($this->checkSignature() && !empty($res)){
+            echo $res;
+        }
+    }
 
-//        $aa='aa';
-//        $bb='ccc';
-//        Redis::set($aa,$bb);
-//        $aa=Redis::get($aa);
-//        dd($aa);
+    private function checkSignature()
+    {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+
+        $token = "Token";
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $tmpStr == $signature ){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
