@@ -18,4 +18,4 @@ Route::get('/', function () {
 Route::any('/info',function(){
     phpinfo();
 });
-Route::any('/Token','TestController@index');
+Route::post('/Token','TestController@index');
