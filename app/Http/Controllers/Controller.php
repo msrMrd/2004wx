@@ -78,13 +78,13 @@ class Controller extends BaseController
             if(isset($token['access_token'])){
                  $token=$token['access_token'];
                 Redis::setex($key,3600,$token);
-                return "无缓存".$token;
+                return $token;
 //                    dd($token);
             }else{
                 return false;
             }
         }else{
-            return  "有缓存".Redis::get($key);
+            return  Redis::get($key);
         }
 
 
