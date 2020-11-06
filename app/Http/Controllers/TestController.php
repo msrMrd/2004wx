@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redis;
 
 class TestController extends Controller
 {
-    public function index($key){
+    public function index(){
         $res=request()->get('echostr','');
         if($this->checkSignature() && !empty($res)){
             echo $res;
@@ -24,9 +24,9 @@ class TestController extends Controller
     //对接
     private function checkSignature()
     {
-        $signature = $_GET["signature"];
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];
+        $signature =request()->get("signature");
+        $timestamp =request()->get ("timestamp");
+        $nonce = request()->get('nonce');
 
         $token = "Token";
         $tmpArr = array($token, $timestamp, $nonce);

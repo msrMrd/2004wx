@@ -19,4 +19,3 @@ Route::any('/info',function(){
     phpinfo();
 });
 Route::get('/Token','TestController@index');
-Route::get('/AccessToken','TestController@getAccesstoken');
