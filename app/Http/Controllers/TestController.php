@@ -13,13 +13,34 @@ class TestController extends Controller
         if($this->checkSignature() && !empty($res)){
             echo $res;
         }else{
-            $res=$this->getAccesstoken();
-            dd($res);
+            $a=$this->getAccesstoken();
+//            dd($res);
+            $obj=$this->receiveMsg();
+            file_put_contents('error_2004.txt',$obj);
+//                switch($obj->MsgType){
+//                    case "event":
+//                        //关注
+//                        if($obj->Event=="subscribe"){
+//
+//                        }
+//                        //取消关注
+//                        if($obj->Event="unsubscribe"){
+//
+//                        }
+//                }
+
 
         }
     }
 
 
+    //接收微信公众传过来的信息
+    private function receiveMsg(){
+        $xml=file_get_contents("php://input");//获取微信公众平台创过来的信息
+//            file_put_contents("data.txt",$data); //将数据写入到某个文件
+        $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的字符串转化为一个对象方便使用
+        return $obj;
+    }
 
     //对接
     private function checkSignature()
