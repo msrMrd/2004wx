@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
 class TestController extends Controller
@@ -59,7 +60,9 @@ class TestController extends Controller
         $tmpStr = sha1( $tmpStr );
 
         if( $tmpStr == $signature ){
-            return true;
+//            return true;
+            $xml=file_get_contents("php://input");//获取微信公众平台创过来的信息
+            Log::info($xml);
         }else{
             return false;
         }
