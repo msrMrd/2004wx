@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Test;
 use Illuminate\Http\Request;
-use Log;
 use Illuminate\Support\Facades\Redis;
-
+use Log;
 class TestController extends Controller
 {
     public function index(){
@@ -18,9 +17,10 @@ class TestController extends Controller
 //            dd($res);
 //            $obj=$this->receiveMsg();
             $xml=file_get_contents("php://input");//获取微信公众平台创过来的信息
+            Log::info('error_2004.txt',$xml);
 //            file_put_contents("data.txt",$data); //将数据写入到某个文件
             $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的字
-            file_put_contents('error_2004.txt',$xml);
+//            Log::info('error_2004.txt',$xml);
 //                switch($obj->MsgType){
 //                    case "event":
 //                        //关注
@@ -60,9 +60,7 @@ class TestController extends Controller
         $tmpStr = sha1( $tmpStr );
 
         if( $tmpStr == $signature ){
-//            return true;
-            $xml=file_get_contents("php://input");//获取微信公众平台创过来的信息
-            Log::info($xml);
+            return true;
         }else{
             return false;
         }
