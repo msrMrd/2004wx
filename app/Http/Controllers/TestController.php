@@ -13,6 +13,8 @@ class TestController extends Controller
             echo $res;
         }else{
 //            dd($a);die;
+            $AccessToken=$this->getAccesstoken();
+            dd($AccessToken);die;
 //            $obj=$this->receiveMsg();
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
 //            file_put_contents("data.txt",$xml); //将数据写入到某个文件
@@ -25,7 +27,7 @@ class TestController extends Controller
                             $AccessToken=$this->getAccesstoken();
                             $url="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$AccessToken."&openid=".$openid."&lang=zh_CN";
                             $user=file_get_contents($url,true);    //获取第三方 的数据
-                            file_put_contents('add.txt',$user);
+//                            file_put_contents('add.txt',$user);
                             if(isset($user['errcode'])){
                                 $this->writeLog("获取用户失败");
                             }else{
