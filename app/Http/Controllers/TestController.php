@@ -8,13 +8,20 @@ use Illuminate\Support\Facades\Redis;
 
 class TestController extends Controller
 {
-    public function index(){
+    public function index($key){
         $res=request()->get('echostr','');
         if($this->checkSignature() && !empty($res)){
             echo $res;
+        }else{
+            $res=$this->getAccesstoken();
+            dd($res);
+
         }
     }
 
+
+
+    //对接
     private function checkSignature()
     {
         $signature = $_GET["signature"];
