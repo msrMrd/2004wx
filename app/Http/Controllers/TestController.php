@@ -15,8 +15,11 @@ class TestController extends Controller
         }else{
             $a=$this->getAccesstoken();
 //            dd($res);
-            $obj=$this->receiveMsg();
-            file_put_contents('error_2004.txt',"ok");
+//            $obj=$this->receiveMsg();
+            $xml=file_get_contents("php://input");//获取微信公众平台创过来的信息
+//            file_put_contents("data.txt",$data); //将数据写入到某个文件
+            $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的字
+            file_put_contents('error_2004.txt',$xml);
 //                switch($obj->MsgType){
 //                    case "event":
 //                        //关注
