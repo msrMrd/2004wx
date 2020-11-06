@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Test;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Log;
 use Illuminate\Support\Facades\Redis;
 
 class TestController extends Controller
