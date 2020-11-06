@@ -16,7 +16,7 @@ class TestController extends Controller
             $a=$this->getAccesstoken();
 //            dd($res);
             $obj=$this->receiveMsg();
-            file_put_contents('error_2004.txt',$obj);
+            file_put_contents('error_2004.txt',"ok");
 //                switch($obj->MsgType){
 //                    case "event":
 //                        //关注
