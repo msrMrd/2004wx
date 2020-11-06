@@ -14,7 +14,7 @@ class TestController extends Controller
             echo $res;
         }else{
             $res=$this->getAccesstoken();
-            dd($res);
+            echo $res;
 
         }
     }
