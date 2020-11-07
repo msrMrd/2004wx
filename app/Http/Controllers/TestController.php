@@ -31,11 +31,11 @@ class TestController extends Controller
                                 $key="1231";
                                 //查到了
                                 if(!Redis::get($key)){
-                                    $content="谢谢，你关注!";
-                                    echo   $this->text($obj,$content);
-                                }else{
                                     Redis::set($key,$openid);
                                     $content="谢谢你们再次关注,我们加倍努力的";
+                                    echo   $this->text($obj,$content);
+                                }else{
+                                    $content="谢谢，你关注!";
                                     echo   $this->text($obj,$content);
                                 }
 
