@@ -12,13 +12,9 @@ class TestController extends Controller
         if($this->checkSignature() && !empty($res)){
             echo $res;
         }else{
-//            dd($a);die;
-//            $AccessToken=$this->getAccesstoken();    //获取token
-//            dd($AccessToken);die;
-//            $obj=$this->receiveMsg();
+//
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
-//            file_put_contents("data.txt",$xml); //将数据写入到某个文件
-            $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
+               $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
                 switch($obj->MsgType){
                     case "event":
                         //关注
@@ -29,7 +25,6 @@ class TestController extends Controller
 //                            dd($url);
                             $user=file_get_contents($url);    //获取第三方 的数据
                             $user=json_decode($user,true);
-                            file_put_contents("aa.txt","kkk");
                             if(isset($user['errcode'])){
                                 $this->writeLog("获取用户失败");
                             }else{
@@ -41,9 +36,9 @@ class TestController extends Controller
                         if($obj->Event=="unsubscribe"){
 //                            $content="取消关注成功,期待你下次关注";
                         }
-
+                        echo   $this->text($obj,$content);
+                        break;
                 }
-            echo   $this->text($obj,$content);
 
         }
     }
