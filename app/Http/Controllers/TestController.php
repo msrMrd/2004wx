@@ -13,7 +13,7 @@ class TestController extends Controller
             echo $res;
         }else{
 //            dd($a);die;
-            $AccessToken=$this->getAccesstoken();    //获取token
+//            $AccessToken=$this->getAccesstoken();    //获取token
 //            dd($AccessToken);die;
 //            $obj=$this->receiveMsg();
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
@@ -24,12 +24,12 @@ class TestController extends Controller
                         //关注
                         if($obj->Event=="subscribe"){
                             $openid=$obj->FromUserName;
-//                            $AccessToken=$this->getAccesstoken();
+                            $AccessToken=$this->getAccesstoken();
                             $url="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$AccessToken."&openid=".$openid."&lang=zh_CN";
 //                            dd($url);
                             $user=file_get_contents($url);    //获取第三方 的数据
-//                            file_put_contents('add.txt',$user);
                             $user=json_decode($user,true);
+                             file_put_contents('add.txt',$user);
                             if(isset($user['errcode'])){
                                 $this->writeLog("获取用户失败");
                             }else{
