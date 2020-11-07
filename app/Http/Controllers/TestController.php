@@ -41,8 +41,9 @@ class TestController extends Controller
                         if($obj->Event=="unsubscribe"){
 //                            $content="取消关注成功,期待你下次关注";
                         }
-                }
 
+                }
+            echo   $this->text($obj,$content);
 
         }
     }
