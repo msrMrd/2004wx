@@ -87,6 +87,7 @@ class TestController extends Controller
         $FromUserName=$obj->ToUserName;
         $CreateTime=time();
         $MsgType="text";
+
         $xml="<xml>
               <ToUserName><![CDATA[%s]]></ToUserName>
               <FromUserName><![CDATA[%s]]></FromUserName>
@@ -94,5 +95,6 @@ class TestController extends Controller
               <MsgType><![CDATA[%s]]></MsgType>
               <Content><![CDATA[%s]]></Content>
             </xml>";
+        echo sprintf($xml,$ToUserName,$FromUserName,$CreateTime,$MsgType,$content);
     }
 }
