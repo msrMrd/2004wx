@@ -26,10 +26,7 @@ class TestController extends Controller
 //                            dd($url);
                             $user=file_get_contents($url);    //获取第三方 的数据
                             $user=json_decode($user,true);
-                            if(isset($user['errcode'])){
-                                $this->writeLog("获取用户失败");
-                            }else{
-                                //查到了
+                            //查到了
 //                                if(!Redis::get($openid)){
 //                                    Redis::set($openid,'gggt');
 //                                    $content="谢谢你关注";
@@ -38,10 +35,10 @@ class TestController extends Controller
 //                                    $content="谢谢你们再次关注,我们加倍努力的";
 //                                    echo   $this->text($obj,$content);
 //                                }
-                                $user_id=User::where('user_id',$openid)->first();   //查询一条
+                                $user_id=User::where('openid',$openid)->first();   //查询一条
                                 if($user_id){
                                     $openid=$obj->FromUserName;
-                                    $user_id=User::where('user_id',$openid)->first();
+//                                    $user_id=User::where('user_id',$openid)->first();
                                     $user_id->subscribe=1;   //查看这个用户的状态  1关注   0未关注
                                     $user_id->save();
                                     $content="谢谢你们再次关注,我们加倍努力的";
@@ -65,7 +62,7 @@ class TestController extends Controller
                                     echo $this->text($obj,$content);
 
                                 }
-                            }
+
                         }
                         //取消关注
                         if($obj->Event=="unsubscribe"){
