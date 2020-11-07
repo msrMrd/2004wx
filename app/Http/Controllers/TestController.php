@@ -28,10 +28,9 @@ class TestController extends Controller
                             if(isset($user['errcode'])){
                                 $this->writeLog("获取用户失败");
                             }else{
-                                $key="1231";
                                 //查到了
-                                if(!Redis::get($key)){
-                                    Redis::set($key,$openid);
+                                if(!Redis::get($openid)){
+                                    Redis::set($openid,'gggt');
                                     $content="谢谢你关注";
                                     echo   $this->text($obj,$content);
                                 }else{
