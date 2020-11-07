@@ -29,7 +29,7 @@ class TestController extends Controller
 //                            dd($url);
                             $user=file_get_contents($url);    //获取第三方 的数据
                             $user=json_decode($user,true);
-                             file_put_contents('add.txt',$user);
+//                             file_put_contents('add.txt',$user);
                             if(isset($user['errcode'])){
                                 $this->writeLog("获取用户失败");
                             }else{
