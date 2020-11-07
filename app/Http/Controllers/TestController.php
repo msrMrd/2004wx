@@ -28,15 +28,24 @@ class TestController extends Controller
                             if(isset($user['errcode'])){
                                 $this->writeLog("获取用户失败");
                             }else{
+                                $key="1231";
                                 //查到了
-                                $content="谢谢，你关注";
+                                if(!Redis::get($key)){
+                                    $content="谢谢，你关注!";
+                                    echo   $this->text($obj,$content);
+                                }else{
+                                    Redis::set($key,$openid);
+                                    $content="谢谢你们再次关注,我们加倍努力的";
+                                    echo   $this->text($obj,$content);
+                                }
+
                             }
                         }
                         //取消关注
                         if($obj->Event=="unsubscribe"){
 //                            $content="取消关注成功,期待你下次关注";
                         }
-                        echo   $this->text($obj,$content);
+//                        echo   $this->text($obj,$content);
                         break;
                 }
 
