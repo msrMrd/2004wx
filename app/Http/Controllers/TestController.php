@@ -26,9 +26,9 @@ class TestController extends Controller
                             $openid=$obj->FromUserName;
 //                            $AccessToken=$this->getAccesstoken();
                             $url="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$AccessToken."&openid=".$openid."&lang=zh_CN";
-                            dd($url);
+//                            dd($url);
                             $user=file_get_contents($url,true);    //获取第三方 的数据
-//                            file_put_contents('add.txt',$user);
+                            file_put_contents('add.txt',$user);
                             if(isset($user['errcode'])){
                                 $this->writeLog("获取用户失败");
                             }else{
