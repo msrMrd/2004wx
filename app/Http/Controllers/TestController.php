@@ -57,7 +57,7 @@ class TestController extends Controller
                                         "subscribe_time"=>$user_id["subscribe_time"],
                                         "subscribe_scene"=>$user_id["subscribe_scene"]
                                     ];
-                                    User::create($res);
+                                    User::insert($res);
                                     $content="官人，谢谢关注！";
 //                                    echo $this->text($obj,$content);
 
