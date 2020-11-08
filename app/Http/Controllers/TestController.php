@@ -42,24 +42,24 @@ class TestController extends Controller
                                     $user_id->subscribe=1;   //查看这个用户的状态  1关注   0未关注
                                     $user_id->save();
                                     $content="谢谢你们再次关注,我们加倍努力的";
-                                    echo $this->text($obj,$content);
+//                                    echo $this->text($obj,$content);
                                 }else{
-                                    $res=[
-                                        "subscribe"=>$user_id["subscribe"],
-                                        "openid"=>$user_id["openid"],
-                                        "nickname"=>$user_id["nickname"],
-                                        "sex"=>$user_id["sex"],
-                                        "city"=>$user_id["city"],
-                                        "country"=>$user_id["country"],
-                                        "province"=>$user_id["province"],
-                                        "language"=>$user_id["language"],
-                                        "headimgurl"=>$user_id["headimgurl"],
-                                        "subscribe_time"=>$user_id["subscribe_time"],
-                                        "subscribe_scene"=>$user_id["subscribe_scene"]
-                                    ];
+//                                    $res=[
+//                                        "subscribe"=>$user_id["subscribe"],
+//                                        "openid"=>$user_id["openid"],
+//                                        "nickname"=>$user_id["nickname"],
+//                                        "sex"=>$user_id["sex"],
+//                                        "city"=>$user_id["city"],
+//                                        "country"=>$user_id["country"],
+//                                        "province"=>$user_id["province"],
+//                                        "language"=>$user_id["language"],
+//                                        "headimgurl"=>$user_id["headimgurl"],
+//                                        "subscribe_time"=>$user_id["subscribe_time"],
+//                                        "subscribe_scene"=>$user_id["subscribe_scene"]
+//                                    ];
                                     User::insert($res);
                                     $content="官人，谢谢关注！";
-                                    echo $this->text($obj,$content);
+//                                    echo $this->text($obj,$content);
 
                                 }
 
@@ -72,7 +72,7 @@ class TestController extends Controller
                             $user_id->subscribe=0;
                             $user_id->save();
                         }
-//                        echo   $this->text($obj,$content);
+                        echo   $this->text($obj,$content);
                         break;
                 }
 
