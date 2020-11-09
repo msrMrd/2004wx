@@ -79,18 +79,18 @@ class TestController extends Controller
                         break;
                     //天气
                     case "text":
-                        $city=urlencode(str_replace("天气","",$obj->Content));//城市名称是字符串
+                        $city=urlencode(str_replace("天气：","",$obj->Content));//城市名称是字符串
                         $url="http://v.juhe.cn/weather/index?format=2&cityname=".$city."&key=9e1e4cef239f2294517fecc7f71eb019";
-                        $city=file_get_contents($url);
-                        $result=json_decode($city,true);
-                        if($result['resultcode']=='200'){
-                            $today=$result['result']['today'];   //获取本天的天气
-                            $content="查询天气的城市：".$today['city']."\n";
-                            $content.="今天的日期：".$today['date_y']."".$today['week']."\n";
-                            $content.="天气状态：".$today['weather']."\n";
-                            $content.="温度：".$today['temperature']."\n";
-                            $content.="风级指数：".$today['wind']."\n";
-                            $content.="温度：".$today['dressing_index']."适合衣服：".$today['dressing_advice']."\n";
+                        $result=file_get_contents($url);
+                        $result=json_decode($result,true);
+                        if($result['resultcode']=="200"){
+                            $today=$result["result"]['today'];   //获取本天的天气
+                            $content="查询天气的城市：".$today["city"]."\n";
+                            $content.="今天的日期：".$today["date_y"]."".$today['week']."\n";
+                            $content.="天气状态：".$today["weather"]."\n";
+                            $content.="温度：".$today["temperature"]."\n";
+                            $content.="风级指数：".$today["wind"]."\n";
+                            $content.="温度：".$today["dressing_index"]."适合衣服：".$today["dressing_advice"]."\n";
                             //获取一个星期的
                             $future=$result["result"]["future"];
                             foreach($future as $k=>$v){
@@ -100,7 +100,7 @@ class TestController extends Controller
                         }else{
                             $content="你的查询天气失败，你的格式是天气:城市,这个城市不属于中国";
                         }
-                        $this->responseText($obj,$content);
+                       echo $this->text($obj,$content);
                         break;
                 }
 
