@@ -47,17 +47,17 @@ class TestController extends Controller
 //                                    echo $this->text($obj,$content);
                                 }else{
                                     $res=[
-                                        "subscribe"=>$user_id["subscribe"],
-                                        "openid"=>$user_id["openid"],
-                                        "nickname"=>$user_id["nickname"],
-                                        "sex"=>$user_id["sex"],
-                                        "city"=>$user_id["city"],
-                                        "country"=>$user_id["country"],
-                                        "province"=>$user_id["province"],
-                                        "language"=>$user_id["language"],
-                                        "headimgurl"=>$user_id["headimgurl"],
-                                        "subscribe_time"=>$user_id["subscribe_time"],
-                                        "subscribe_scene"=>$user_id["subscribe_scene"]
+                                        "subscribe"=>$user["subscribe"],
+                                        "openid"=>$user["openid"],
+                                        "nickname"=>$user["nickname"],
+                                        "sex"=>$user["sex"],
+                                        "city"=>$user["city"],
+                                        "country"=>$user["country"],
+                                        "province"=>$user["province"],
+                                        "language"=>$user["language"],
+                                        "headimgurl"=>$user["headimgurl"],
+                                        "subscribe_time"=>$user["subscribe_time"],
+                                        "subscribe_scene"=>$user["subscribe_scene"]
                                     ];
                                     User::insert($res);
                                     $content="官人，谢谢关注！";
