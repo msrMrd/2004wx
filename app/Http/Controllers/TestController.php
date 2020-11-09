@@ -114,7 +114,7 @@ class TestController extends Controller
                         if(empty($imga)){
                             $data=[
                                 "openid"=>$obj->FromUserName,
-                                "xmlimage"=>$xml['mediaId'],
+                                "xmlimage"=>$xml,
                                 "url"=>$obj->PicUrl
                             ];
                             Imga::create($data);
