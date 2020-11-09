@@ -108,14 +108,22 @@ class TestController extends Controller
                         }
                        echo $this->text($obj,$content);
                         break;
-                    case "image":   //图片入库
-                     $data=[
-                         "openid"=>$obj->FromUserName,
-                         "xmlimage"=>$xml['mediaId'],
-                         "url"=>$obj->PicUrl
-                     ];
-//                        Images::insert($data);
-                     Imga::create($data);
+                    //图片入库
+                    case "image":
+                        $imga=Imga::where("url",$obj->PicUrl)->first();
+                        if(empty($imga)){
+                            $data=[
+                                "openid"=>$obj->FromUserName,
+                                "xmlimage"=>$xml['mediaId'],
+                                "url"=>$obj->PicUrl
+                            ];
+                            Imga::create($data);
+                            $content="已存在素材";
+                        }else{
+                            $content="素材添加成功";
+                        }
+//                       Images::insert($data);
+                        echo $this->text($obj,$content);
                         break;
                 }
 
