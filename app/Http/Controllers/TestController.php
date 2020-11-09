@@ -80,10 +80,11 @@ class TestController extends Controller
                     //天气
                     case "text":
                         $city=urlencode(str_replace("天气:","",$obj->Content));//城市名称是字符串
-                        $url="http://v.juhe.cn/weather/index?format=2&cityname=".$city."&key=9e1e4cef239f2294517fecc7f71eb019";
+                        $key="77aee97ce2cadb280fab57b84a151966";
+                        $url="http://v.juhe.cn/weather/index?format=2&cityname=".$city."&key=".$key;
                         $result=file_get_contents($url);
                         $result=json_decode($result,true);
-                        if($result['resultcode']=="200"){
+                        if($result['resultcode']=="0"){
                             $today=$result["result"]['today'];   //获取本天的天气
                             $content="查询天气的城市：".$today["city"]."\n";
                             $content.="今天的日期：".$today["date_y"]."".$today['week']."\n";
