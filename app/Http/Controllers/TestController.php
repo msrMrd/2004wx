@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Log;
+use GuzzleHttp\Client;
 class TestController extends Controller
 {
     public function index(){
@@ -81,7 +82,7 @@ class TestController extends Controller
                     case "text":
                         $city=urlencode(str_replace("天气:","",$obj->Content));//城市名称是字符串
                         $key="77aee97ce2cadb280fab57b84a151966";
-                        $url="http://v.juhe.cn/weather/index?format=2&cityname=".$city."&key=".$key;
+                        $url="http://apis.juhe.cn/simpleWeather/query?city=".$city."&key=".$key;
                         $result=file_get_contents($url);
                         $result=json_decode($result,true);
                         if($result['resultcode']=="0"){
@@ -144,6 +145,38 @@ class TestController extends Controller
             return false;
         }
     }
+
+    //guzlle发送请求
+    public function geta(){
+//        echo "qqq";die;
+        $url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".env('MIX_APPID')."&secret=".env('MIX_SECRET');
+        $client=new Client();
+        $resource=$client->request('GET',$url,['verify'=>false]);
+
+        $json_str=$resource->getBody();   //服务器响应的数据
+        echo $json_str;
+    }
+
+    //素材
+    public function getb(){
+        $token=$this->getAccesstoken();
+        $type="image";
+        $url="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=".$token."&type=".$type;
+        $client=new Client();
+        $resource=$client->request('POST',$url,[
+            'verify'=>false,
+            'multipart' => [
+                [ 'name' =>"media",
+                    'contents' =>fopen('gsi.jpg','r')
+                ],
+            ]
+        ]);   //发送请求想起应
+        $data = $resource->getBody();   //服务器响应的
+        echo $data;
+    }
+
+
+    //文本
     function text($obj,$content){
         $ToUserName=$obj->FromUserName;
         $FromUserName=$obj->ToUserName;

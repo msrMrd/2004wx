@@ -7,7 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Redis;
-
+use GuzzleHttp\Client;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -71,9 +71,16 @@ class Controller extends BaseController
         $key='weiAccess_token';
         if(!Redis::get($key)){
             $url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".env('MIX_APPID')."&secret=".env('MIX_SECRET')."";
-            $token=file_get_contents($url);
+
+           //第一种方式
+//            $token=file_get_contents($url);
+            //第二种方式
+            $client=new Client();
+            $resource=$client->request('GET',$url,['verify'=>false]);
+
+            $json_str=$resource->getBody();
 //        dd($token);
-            $token=json_decode($token,true);
+            $token=json_decode($json_str,true);
             //判断token是否存在
             if(isset($token['access_token'])){
                  $token=$token['access_token'];

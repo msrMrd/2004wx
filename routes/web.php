@@ -20,5 +20,7 @@ Route::any('/info',function(){
 });
 Route::any('/Token','TestController@index');
 
+Route::any('/getguzzle','TestController@geta');
+Route::any('/postguzzle','TestController@getb');
 
 
