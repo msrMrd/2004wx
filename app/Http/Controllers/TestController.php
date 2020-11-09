@@ -79,7 +79,7 @@ class TestController extends Controller
                         break;
                     //天气
                     case "text":
-                        $city=urlencode(str_replace("天气：","",$obj->Content));//城市名称是字符串
+                        $city=urlencode(str_replace("天气:","",$obj->Content));//城市名称是字符串
                         $url="http://v.juhe.cn/weather/index?format=2&cityname=".$city."&key=9e1e4cef239f2294517fecc7f71eb019";
                         $result=file_get_contents($url);
                         $result=json_decode($result,true);
@@ -94,8 +94,8 @@ class TestController extends Controller
                             //获取一个星期的
                             $future=$result["result"]["future"];
                             foreach($future as $k=>$v){
-                                $content.="日期：".date("Y-m-d",strtotime($v["date"])).$v['week'].",";
-                                $content.="天气：".$v['weather']."\n";
+                                $content.="日期:".date("Y-m-d",strtotime($v["date"])).$v['week'].",";
+                                $content.="天气:".$v['weather']."\n";
                             }
                         }else{
                             $content="你的查询天气失败，你的格式是天气:城市,这个城市不属于中国";
