@@ -35,6 +35,10 @@ class TestController extends Controller
 //                                    $content="谢谢你们再次关注,我们加倍努力的";
 //                                    echo   $this->text($obj,$content);
 //                                }
+                            if(isser($user['errcode'])){
+                                $this->writeLog("获取用户信息失败了");
+
+                            }else{
                                 $user_id=User::where('openid',$openid)->first();   //查询一条
                                 if($user_id){
 //                                    $openid=$obj->FromUserName;
@@ -62,6 +66,7 @@ class TestController extends Controller
                                     echo $this->text($obj,$content);
 
                                 }
+                            }
 
                         }
                         //取消关注
