@@ -85,7 +85,7 @@ class TestController extends Controller
                         $url="http://apis.juhe.cn/simpleWeather/query?city=".$city."&key=".$key;
                         $result=file_get_contents($url);
                         $result=json_decode($result,true);
-                        if($result['resultcode']==0){
+                        if($result['error_code']==0){
                             $today=$result["result"]['today'];   //获取本天的天气
                             $content="查询天气的城市：".$today["city"]."\n";
                             $content.="今天的日期：".$today["date_y"]."".$today['week']."\n";
