@@ -37,12 +37,12 @@ class TestController extends Controller
 //                                }
                                 $user_id=User::where('openid',$openid)->first();   //查询一条
                                 if($user_id){
-                                    $openid=$obj->FromUserName;
-                                    $user_id=User::where('openid',$openid)->first();
+//                                    $openid=$obj->FromUserName;
+//                                    $user_id=User::where('openid',$openid)->first();
                                     $user_id->subscribe=1;   //查看这个用户的状态  1关注   0未关注
                                     $user_id->save();
                                     $content="谢谢你们再次关注,我们加倍努力的";
-//                                    echo $this->text($obj,$content);
+                                    echo $this->text($obj,$content);
                                 }else{
 //                                    $res=[
 //                                        "subscribe"=>$user_id["subscribe"],
@@ -59,7 +59,7 @@ class TestController extends Controller
 //                                    ];
                                     User::insert($user);
                                     $content="官人，谢谢关注！";
-//                                    echo $this->text($obj,$content);
+                                    echo $this->text($obj,$content);
 
                                 }
 
