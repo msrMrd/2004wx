@@ -90,8 +90,8 @@ class TestController extends Controller
                             $content="查询天气的城市：".$result["result"]["city"]."\n";
                             $content.="天气详细情况：".$today["info"];
                             $content.="温度：".$today["temperature"]."\n";
-                            $content.="湿度：".$today["humidity	"]."\n";
-                            $content.="风向：".$today["direct	"]."\n";
+                            $content.="湿度：".$today["humidity"]."\n";
+                            $content.="风向：".$today["direct"]."\n";
                             $content.="风力：".$today["power"]."\n";
                             $content.="空气质量指数：".$today["aqi"]."\n";
                             //获取一个星期的
