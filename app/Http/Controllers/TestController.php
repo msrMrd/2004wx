@@ -110,7 +110,8 @@ class TestController extends Controller
                     case "image":   //图片入库
                      $data=[
                          "openid"=>$obj->FromUserName,
-                         "images"=>$xml,
+                         "xmlimage"=>$xml,
+                         "url"=>$obj->PicUrl
                      ];
 //                        Images::insert($data);
                      DB::table('images')->insert($data);
