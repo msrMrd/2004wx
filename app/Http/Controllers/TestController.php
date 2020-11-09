@@ -35,7 +35,7 @@ class TestController extends Controller
 //                                    $content="谢谢你们再次关注,我们加倍努力的";
 //                                    echo   $this->text($obj,$content);
 //                                }
-                                $user_id=User::first($openid);   //查询一条
+                                $user_id=User::where('openid',$openid)->first();   //查询一条
                                 if($user_id){
                                     $openid=$obj->FromUserName;
                                     $user_id=User::where('openid',$openid)->first();
