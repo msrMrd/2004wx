@@ -86,17 +86,18 @@ class TestController extends Controller
                         $result=file_get_contents($url);
                         $result=json_decode($result,true);
                         if($result['error_code']==0){
-                            $today=$result["result"]['today'];   //获取本天的天气
+                            $today=$result["result"]['realtime'];   //获取本天的天气
                             $content="查询天气的城市：".$today["city"]."\n";
-                            $content.="今天的日期：".$today["date_y"]."".$today['week']."\n";
-                            $content.="天气状态：".$today["weather"]."\n";
+                            $content.="天气详细情况：".$today["info"];
                             $content.="温度：".$today["temperature"]."\n";
-                            $content.="风级指数：".$today["wind"]."\n";
-                            $content.="温度：".$today["dressing_index"]."适合衣服：".$today["dressing_advice"]."\n";
+                            $content.="湿度：".$today["humidity	"]."\n";
+                            $content.="风向：".$today["direct	"]."\n";
+                            $content.="风力：".$today["power"]."\n";
+                            $content.="空气质量指数：".$today["aqi"]."\n";
                             //获取一个星期的
                             $future=$result["result"]["future"];
                             foreach($future as $k=>$v){
-                                $content.="日期:".date("Y-m-d",strtotime($v["date"])).$v['week'].",";
+                                $content.="日期:".date("Y-m-d",strtotime($v["date"])).$v['temperature'].",";
                                 $content.="天气:".$v['weather']."\n";
                             }
                             echo $this->text($obj,$content);
