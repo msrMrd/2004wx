@@ -97,6 +97,7 @@ class TestController extends Controller
                                 $content.="日期:".date("Y-m-d",strtotime($v["date"])).$v['week'].",";
                                 $content.="天气:".$v['weather']."\n";
                             }
+                            echo $this->text($obj,$content);
                         }else{
                             $content="你的查询天气失败，你的格式是天气:城市,这个城市不属于中国";
                         }
