@@ -19,3 +19,6 @@ Route::any('/info',function(){
     phpinfo();
 });
 Route::any('/Token','TestController@index');
+
+
+
