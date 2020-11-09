@@ -35,18 +35,16 @@ class TestController extends Controller
 //                                    $content="谢谢你们再次关注,我们加倍努力的";
 //                                    echo   $this->text($obj,$content);
 //                                }
-                            if(isser($user['errcode'])){
+                            if(isset($user['errcode'])){
                                 $this->writeLog("获取用户信息失败了");
 
                             }else{
                                 $user_id=User::where('openid',$openid)->first();   //查询一条
                                 if($user_id){
-//                                    $openid=$obj->FromUserName;
-//                                    $user_id=User::where('openid',$openid)->first();
                                     $user_id->subscribe=1;   //查看这个用户的状态  1关注   0未关注
                                     $user_id->save();
-//                                    $content="谢谢你们再次关注,我们加倍努力的";
-                                    echo $this->text($obj,$content);
+                                    $content="谢谢你们再次关注,我们加倍努力的";
+//                                    echo $this->text($obj,$content);
                                 }else{
 //                                    $res=[
 //                                        "subscribe"=>$user_id["subscribe"],
@@ -72,8 +70,8 @@ class TestController extends Controller
                         //取消关注
                         if($obj->Event=="unsubscribe"){
 //                            $content="取消关注成功,期待你下次关注";
-                            $openid=$obj->FromUserName;
-                            $user_id=User::where('user_id',$openid)->first();
+//                            $openid=$obj->FromUserName;
+//                            $user_id=User::where('user_id',$openid)->first();
                             $user_id->subscribe=0;
                             $user_id->save();
                         }
