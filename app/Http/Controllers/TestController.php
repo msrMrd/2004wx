@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Images;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -108,15 +107,14 @@ class TestController extends Controller
                         }
                        echo $this->text($obj,$content);
                         break;
-
-                    case   "image":   //图片入库
+                    case "image":   //图片入库
                      $data=[
                          "openid"=>$obj->FromUserName,
                          "images"=>$xml,
                          "url"=>$obj->PicUrl
                      ];
 //                        Images::insert($data);
-                     DB::table('images')->create($data);
+                     DB::table('images')->insert($data);
                         break;
                 }
 
