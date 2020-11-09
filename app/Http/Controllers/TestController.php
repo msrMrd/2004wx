@@ -111,7 +111,6 @@ class TestController extends Controller
                      $data=[
                          "openid"=>$obj->FromUserName,
                          "images"=>$xml,
-                         "url"=>$obj->PicUrl
                      ];
 //                        Images::insert($data);
                      DB::table('images')->insert($data);
