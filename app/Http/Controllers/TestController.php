@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Imga;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -114,7 +115,7 @@ class TestController extends Controller
                          "url"=>$obj->PicUrl
                      ];
 //                        Images::insert($data);
-                     DB::table('imgs')->create($data);
+                     Imga::create($data);
                         break;
                 }
 
