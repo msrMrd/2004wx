@@ -87,7 +87,7 @@ class TestController extends Controller
                         $result=json_decode($result,true);
                         if($result['error_code']==0){
                             $today=$result["result"]['realtime'];   //获取本天的天气
-                            $content="查询天气的城市：".$today["city"]."\n";
+                            $content="查询天气的城市：".$result["result"]["city"]."\n";
                             $content.="天气详细情况：".$today["info"];
                             $content.="温度：".$today["temperature"]."\n";
                             $content.="湿度：".$today["humidity	"]."\n";
