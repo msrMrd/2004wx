@@ -114,7 +114,7 @@ class TestController extends Controller
                          "url"=>$obj->PicUrl
                      ];
 //                        Images::insert($data);
-                     DB::table('images')->insert($data);
+                     DB::table('imgs')->create($data);
                         break;
                 }
 
