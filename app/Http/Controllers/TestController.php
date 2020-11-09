@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Images;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -105,6 +106,15 @@ class TestController extends Controller
                             $content="你的查询天气失败，你的格式是天气:城市,这个城市不属于中国";
                         }
                        echo $this->text($obj,$content);
+                        break;
+
+                    case   "image":   //图片入库
+                     $data=[
+                         "openid"=>$obj->FromUserName,
+                         "images"=>$xml,
+                         "url"=>$obj->PicUrl
+                     ];
+                        Images::create($data);
                         break;
                 }
 
