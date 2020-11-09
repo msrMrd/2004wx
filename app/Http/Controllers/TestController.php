@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Images;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Log;
 use GuzzleHttp\Client;
@@ -114,7 +115,8 @@ class TestController extends Controller
                          "images"=>$xml,
                          "url"=>$obj->PicUrl
                      ];
-                        Images::create($data);
+//                        Images::insert($data);
+                     DB::table('images')->create($data);
                         break;
                 }
 
