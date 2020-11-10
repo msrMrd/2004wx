@@ -180,6 +180,7 @@ class TestController extends Controller
     //素材
     public function getb(){
         $token=$this->getAccesstoken();
+//        dd($token);
         $type="image";
         $url="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=".$token."&type=".$type;
         $client=new Client();
@@ -195,6 +196,80 @@ class TestController extends Controller
         echo $data;
     }
 
+    //自定义菜单
+    public function textmenu(){
+        $token=$this->getAccesstoken();
+        $url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$token;
+        $menu=[
+            "button"=>[
+        [
+                    "name"=>"2004wx",
+                    "sub_button"=>[
+                            [
+                            "type"=>"view",
+                            "name"=>"搜索",
+                            "url"=>"http://www.baidu.com/"
+                                ],
+                                [
+                                "type"=>"view",
+                                "name"=>"淘宝",
+                                "url"=>"http://www.taobao.com/"
+                                ],
+                                [
+                                "type"=>"view",
+                                "name"=>"京东",
+                                "url"=>"http://www.jd.com/"
+                                ]
+                            ]
+                    ],
+             [
+                    "name"=>"今日搜索",
+                    "sub_button"=>[[
+                        "type"=>"view",
+                        "name"=>"搜索",
+                        "url"=>"http://www.baidu.com/"
+                    ],
+                    [
+                        "type"=>"view",
+                        "name"=>"淘宝",
+                        "url"=>"http://www.taobao.com/"
+                    ],
+                    [
+                        "type"=>"view",
+                        "name"=>"京东",
+                        "url"=>"http://www.jd.com/"
+                    ]
+                    ]
+                    ],
+                    [
+                    "name"=>"访问量",
+                    "sub_button"=>[[
+                        "type"=>"view",
+                        "name"=>"搜索",
+                        "url"=>"http://www.baidu.com/"
+                    ],
+                    [
+                        "type"=>"view",
+                        "name"=>"淘宝",
+                        "url"=>"http://www.taobao.com/"
+                    ],
+                    [
+                        "type"=>"view",
+                        "name"=>"京东",
+                        "url"=>"http://www.jd.com/"
+                    ]
+                    ]
+                ]
+            ]
+        ];
+        $client=new Client();
+        $resource=$client->request('POST',$url,[
+            'verify'=>false,
+            'body'=>json_encode($menu,JSON_UNESCAPED_UNICODE)
+        ]);   //发送请求想起应
+        $data = $resource->getBody();   //服务器响应的
+        echo $data;
+    }
 
     //文本
     function text($obj,$content){
