@@ -19,6 +19,7 @@ class TestController extends Controller
 //
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
                $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
+            file_put_contents("data.txt",$xml,FILE_APPEND);
                 switch($obj->MsgType){
                     case "event":
                         //关注
@@ -124,6 +125,10 @@ class TestController extends Controller
                         }
 //                       Images::insert($data);
                         echo $this->text($obj,$content);
+                        break;
+
+                    case "image":
+
                         break;
                 }
 
@@ -271,7 +276,8 @@ class TestController extends Controller
         echo $data;
     }
 
-    //文本
+####################文本消息################
+
     function text($obj,$content){
         $ToUserName=$obj->FromUserName;
         $FromUserName=$obj->ToUserName;
@@ -287,4 +293,19 @@ class TestController extends Controller
             </xml>";
         echo sprintf($xml,$ToUserName,$FromUserName,$CreateTime,$MsgType,$content);
     }
+
+
+
+    ############################图片消息##########################
+    function imga(){
+
+    }
+
+
+
+##############################视频消息###################
+
+
+#############################音频消息####################
+
 }
