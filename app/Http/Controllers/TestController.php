@@ -300,11 +300,14 @@ class TestController extends Controller
              $data["media_id"]=$obj->MediaId;
 
          }
-         dd(Media::create($data));
         Media::create($data);
+
+
      }else{
 
      }
+
+     return true;
  }
 
 //    ############################图片消息##########################
