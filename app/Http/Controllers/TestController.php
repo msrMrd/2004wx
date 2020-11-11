@@ -269,7 +269,7 @@ class TestController extends Controller
     }
 #################消息入库################
  public  function typeContent($obj){
-     $res=Media::where("media_id",$obj->media_id)->first();
+     $res=Media::where("media_id",$obj->MediaId)->first();
      $token=$this->getAccesstoken();
      if(empty($res)){
          $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$token."&media_id=".$obj->MediaId;
