@@ -271,10 +271,10 @@ class TestController extends Controller
  public  function typeContent($obj){
      $res=Media::where("media_id",$obj->MediaId)->first();
      $token=$this->getAccesstoken();
-     if($res){
+     if(empty($res)){
          $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$token."&media_id=".$obj->MediaId;
          $url=file_get_contents($url);
-         file_put_contents("imgs.jpg",$url);
+         file_put_contents("dwaw.jpg",$url);
          $data=[
              "time"=>time(),
              "msg_type"=>$obj->MsgType,
@@ -300,7 +300,10 @@ class TestController extends Controller
              $data["media_id"]=$obj->MediaId;
 
          }
+         dd(Media::create($data));
         Media::create($data);
+     }else{
+
      }
  }
 
