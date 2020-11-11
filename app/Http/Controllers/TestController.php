@@ -274,7 +274,6 @@ class TestController extends Controller
      if(empty($res)){
          $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$token."&media_id=".$obj->MediaId;
          $url=file_get_contents($url);
-         file_put_contents("dwaw.jpg",$url);
          $data=[
              "time"=>time(),
              "msg_type"=>$obj->MsgType,
@@ -283,6 +282,7 @@ class TestController extends Controller
          ];
          //图片
          if($obj->MsgType=="image"){
+             $file_type = '.jpg';
              $data["url"] = $obj->PicUrl;
                 $data["media_id"] = $obj->MediaId;
          }
@@ -300,7 +300,9 @@ class TestController extends Controller
              $data["media_id"]=$obj->MediaId;
 
          }
-        Media::create($data);
+         file_put_contents("dwaw".$file_type,$url);
+
+         Media::create($data);
 
 
      }else{
