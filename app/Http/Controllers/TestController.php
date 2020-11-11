@@ -22,7 +22,7 @@ class TestController extends Controller
                $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
 //            file_put_contents("wx2004.txt",$xml,FILE_APPEND);
             if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
-                $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库
+                $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库9
             }
                 switch($obj->MsgType){
                     case "event":
@@ -271,6 +271,8 @@ class TestController extends Controller
  public  function typeContent($obj){
      $res=Media::where("media_id",$obj->media_id)->first();
      if(empty($res)){
+         $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$this->getMiddleware()."&media_id=".$obj->media_id;
+         file_put_contents("imgs.jpg",$url);
          $data=[
              "time"=>time(),
              "msg_type"=>$obj->MsgType,
