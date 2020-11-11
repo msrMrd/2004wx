@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Imga;
+use App\Models\Media;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,8 @@ class TestController extends Controller
 //
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
                $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
-//            file_put_contents("data.txt",$xml,FILE_APPEND);
+            file_put_contents("wx2004.txt",$xml,FILE_APPEND);
+            $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库
                 switch($obj->MsgType){
                     case "event":
                         //关注
@@ -109,27 +111,10 @@ class TestController extends Controller
                         }
                        echo $this->text($obj,$content);
                         break;
-                    //图片入库
-                    case "image":
-                        $imga=Imga::where("url",$obj->PicUrl)->first();
-                        if(empty($imga)){
-                            $data=[
-                                "openid"=>$obj->FromUserName,
-                                "xmlimage"=>$xml,
-                                "url"=>$obj->PicUrl
-                            ];
-                            Imga::create($data);
-                            $content="已存在素材";
-                        }else{
-                            $content="素材添加成功";
-                        }
-//                       Images::insert($data);
-                        echo $this->text($obj,$content);
-                        break;
-
-                    case "image":
-
-                        break;
+//
+//                    case "image":
+//
+//                        break;
                 }
 
         }
@@ -182,7 +167,8 @@ class TestController extends Controller
         echo $json_str;
     }
 
-    //素材
+      #################### 素材 ################
+
     public function getb(){
         $token=$this->getAccesstoken();
 //        dd($token);
@@ -201,7 +187,8 @@ class TestController extends Controller
         echo $data;
     }
 
-    //自定义菜单
+    #################### 自定义菜单 ################
+
     public function textmenu(){
         $token=$this->getAccesstoken();
         $url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$token;
@@ -276,7 +263,7 @@ class TestController extends Controller
         echo $data;
     }
 
-####################文本消息################
+    #################文本消息################
 
     function text($obj,$content){
         $ToUserName=$obj->FromUserName;
@@ -293,19 +280,98 @@ class TestController extends Controller
             </xml>";
         echo sprintf($xml,$ToUserName,$FromUserName,$CreateTime,$MsgType,$content);
     }
+#################消息入库################
+ public  function typeContent($obj){
+     $res=Media::where("media_id",$obj->media_id)->first();
+     if(empty($res)){
+         $data=[
+             "time"=>time(),
+             "msg_type"=>$obj->MsgType,
+             "openid"=>$obj->FromUserName,
+             "msg_id"=>$obj->MsgId
+         ];
+         //图片
+         if($obj->MsgType=="image"){
+             $data["url"] = $obj->PicUrl;
+                $data["media_id"] = $obj->MediaId;
+         }
+         //视频
+         if($obj->MsgType=="video"){
+             $data["media_id"]=$obj->MediaId;
 
+         }
+         //文本
+         if($obj->MsgType=="text"){
+             $data["content"]=$obj->MediaId;
 
+         }
+         //音频
+         if($obj->MsgType=="voice"){
+             $data["media_id"]=$obj->MediaId;
 
-    ############################图片消息##########################
-    function imga(){
+         }
+        Media::create($data);
+     }
+ }
 
-    }
-
-
-
-##############################视频消息###################
-
-
-#############################音频消息####################
-
+//    ############################图片消息##########################
+//    function imgContent($obj,$content){
+//        $ToUserName=$obj->FromUserName;
+//        $FromUserName=$obj->ToUserName;
+//        $CreateTime=time();
+//        $xml="<xml>
+//              <ToUserName><![CDATA[%s]]></ToUserName>
+//              <FromUserName><![CDATA[%s]]></FromUserName>
+//              <CreateTime>%s</CreateTime>
+//              <MsgType><![CDATA[%s]]></MsgType>
+//              <Image>
+//              <MsgId>%s</MsgId>
+//              </Image>
+//            </xml>";
+//        echo sprintf($xml,$ToUserName,$FromUserName,$CreateTime,'image',$content);
+//    }
+//
+//
+//
+//
+//#############################音频消息####################
+//    public function voiceContent($obj,$content){
+//        $ToUserName=$obj->FromUserName;
+//        $FromUserName=$obj->ToUserName;
+//        $CreateTime=time();
+//        $xml="
+//            <xml>
+//              <ToUserName><![CDATA[%s]]></ToUserName>
+//              <FromUserName><![CDATA[%s]]></FromUserName>
+//              <CreateTime>%s</CreateTime>
+//              <MsgType><![CDATA[%s]]></MsgType>
+//              <Voice>
+//              <MediaId><![CDATA[%s]]></MediaId>
+//              </Voice>
+//            </xml>";
+//        echo sprintf($xml,$ToUserName,$FromUserName,$CreateTime,'voice',$content);
+//
+//    }
+//
+//
+//    ##############################视频消息###################
+//    public function videoContent($obj,$content,$title,$description){
+//        $ToUserName=$obj->FromUserName;
+//        $FromUserName=$obj->ToUserName;
+//        $CreateTime=time();
+//        $xml="
+//        <xml>
+//          <ToUserName><![CDATA[%s]]></ToUserName>
+//          <FromUserName><![CDATA[%s]]></FromUserName>
+//          <CreateTime>%s</CreateTime>
+//          <MsgType><![CDATA[%s]]></MsgType>
+//          <MediaId><![CDATA[%s]]></MediaId>
+//          <ThumbMediaId><![CDATA[%s]]></ThumbMediaId>
+//          <MsgId>%s</MsgId>
+//        </xml>";
+//        echo sprintf($xml,$ToUserName,$FromUserName,$CreateTime,'video',$content,$title,$description);
+//
+//    }
+//
+//    ##############################音乐消息###################
 }
