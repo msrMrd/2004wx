@@ -271,9 +271,8 @@ class TestController extends Controller
  public  function typeContent($obj){
      $res=Media::where("media_id",$obj->media_id)->first();
      $token=$this->getAccesstoken();
-     $media_id=$obj->MediaId;
      if(empty($res)){
-         $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$token."&media_id=".$media_id;
+         $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$token."&media_id=".$obj->MediaId;
          $url=file_get_contents($url);
          file_put_contents("imgs.jpg",$url);
          $data=[
