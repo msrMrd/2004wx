@@ -270,11 +270,11 @@ class TestController extends Controller
 #################消息入库################
  public  function typeContent($obj){
      $res=Media::where("media_id",$obj->MediaId)->first();
-     $token=$this->getAccesstoken();
-     if(empty($res)){
+     $token=$this->getAccesstoken();     //获取token
+     if(empty($res)){   //如果没有的话就执行添加
          $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=".$token."&media_id=".$obj->MediaId;
          $url=file_get_contents($url);
-         $data=[
+         $data=[           //类型公用的   然后类型不一样的往$data里面插数据
              "time"=>time(),
              "msg_type"=>$obj->MsgType,
              "openid"=>$obj->FromUserName,
@@ -288,6 +288,7 @@ class TestController extends Controller
          }
          //视频
          if($obj->MsgType=="video"){
+             $file_type = '.mp4';
              $data["media_id"]=$obj->MediaId;
 
          }
@@ -297,6 +298,7 @@ class TestController extends Controller
          }
          //音频
          if($obj->MsgType=="voice"){
+             $file_type = '.amr';
              $data["media_id"]=$obj->MediaId;
 
          }
