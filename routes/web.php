@@ -19,10 +19,10 @@ Route::any('/info',function(){
     phpinfo();
 });
 Route::any('/Token','TestController@index');
+Route::any('/textmenu','TestController@textmenu');   //自定义菜单
 
 Route::any('/getguzzle','TestController@geta');
 Route::any('/postguzzle','TestController@getb');
-Route::any('/textmenu','TestController@textmenu');
 
 
 

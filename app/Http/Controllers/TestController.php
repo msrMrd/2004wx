@@ -21,7 +21,9 @@ class TestController extends Controller
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
                $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
 //            file_put_contents("wx2004.txt",$xml,FILE_APPEND);
-            $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库
+            if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
+                $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库
+            }
                 switch($obj->MsgType){
                     case "event":
                         //关注
@@ -199,32 +201,17 @@ class TestController extends Controller
                     "sub_button"=>[
                             [
                             "type"=>"view",
-                            "name"=>"搜索",
-                            "url"=>"http://www.baidu.com/"
-                                ],
-                                [
-                                "type"=>"view",
-                                "name"=>"淘宝",
-                                "url"=>"http://www.taobao.com/"
-                                ],
-                                [
-                                "type"=>"view",
-                                "name"=>"京东",
-                                "url"=>"http://www.jd.com/"
+                            "name"=>"项目",
+                            "url"=>"http://2001shop.liyazhou.top/"
                                 ]
                             ]
                     ],
              [
-                    "name"=>"今日搜索",
+                    "name"=>"操作",
                     "sub_button"=>[[
-                        "type"=>"view",
-                        "name"=>"搜索",
-                        "url"=>"http://www.baidu.com/"
-                    ],
-                    [
-                        "type"=>"view",
-                        "name"=>"淘宝",
-                        "url"=>"http://www.taobao.com/"
+                        "type"=>"click",
+                        "name"=>"签到",
+                         "key"=> "V1001_TODAY_MUSIC"
                     ],
                     [
                         "type"=>"view",
@@ -303,7 +290,6 @@ class TestController extends Controller
          //文本
          if($obj->MsgType=="text"){
              $data["content"]=$obj->Content;
-
          }
          //音频
          if($obj->MsgType=="voice"){
