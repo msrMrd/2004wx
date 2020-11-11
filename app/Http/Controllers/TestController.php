@@ -302,7 +302,7 @@ class TestController extends Controller
          }
          //文本
          if($obj->MsgType=="text"){
-             $data["content"]=$obj->MediaId;
+             $data["content"]=$obj->Content;
 
          }
          //音频
