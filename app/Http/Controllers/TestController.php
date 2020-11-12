@@ -367,7 +367,5 @@ class TestController extends Controller
 //        </xml>";
 //        echo sprintf($xml,$ToUserName,$FromUserName,$CreateTime,'video',$content,$title,$description);
 //
-//    }
-//
-//    ##############################音乐消息###################
+//    }s
 }
