@@ -196,7 +196,7 @@ class TestController extends Controller
                             [
                             "type"=>"view",
                             "name"=>"项目",
-                            "url"=>"http://2001shop.liyazhou.top/"
+                            "url"=>"http://www.jd.com/"
                                 ]
                             ]
                     ],
