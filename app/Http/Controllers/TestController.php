@@ -26,6 +26,7 @@ class TestController extends Controller
             }
             if($obj->EventKey=="V1001_TODAY_MUSIC"){
                 $key=$obj->FromUserName;
+                file_put_contents("as.ss",$key);
                 $time=date("Y-m-d",time());
                 $date=Redis::zrange($key,0,-1);
                 if($date){
