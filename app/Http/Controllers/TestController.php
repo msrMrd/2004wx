@@ -32,7 +32,6 @@ class TestController extends Controller
                             $AccessToken=$this->getAccesstoken();   //获取token
                             $url="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$AccessToken."&openid=".$openid."&lang=zh_CN";
 //                            dd($url);
-                            file_put_contents('data.da',$url);
                             $user=file_get_contents($url);    //获取第三方 的数据
                             $user=json_decode($user,true);
                             //查到了
