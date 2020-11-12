@@ -321,8 +321,9 @@ class TestController extends Controller
              $data["media_id"]=$obj->MediaId;
 
          }
-         file_put_contents("dwaw".$file_type,$url);
-
+         if(!empty($file_type)){    //如果不是空的这下载
+             file_put_contents("dwaw".$file_type,$url);
+         }
          Media::create($data);
 
 
