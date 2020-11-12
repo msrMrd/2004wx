@@ -307,7 +307,7 @@ class TestController extends Controller
              $data["media_id"]=$obj->MediaId;
 
          }
-         文本
+//         文本
          if($obj->MsgType=="text"){
              $data["content"]=$obj->Content;
          }
