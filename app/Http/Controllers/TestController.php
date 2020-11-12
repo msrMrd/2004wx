@@ -292,10 +292,10 @@ class TestController extends Controller
              $data["media_id"]=$obj->MediaId;
 
          }
-         //文本
-         if($obj->MsgType=="text"){
-             $data["content"]=$obj->Content;
-         }
+//         //文本
+//         if($obj->MsgType=="text"){
+//             $data["content"]=$obj->Content;
+//         }
          //音频
          if($obj->MsgType=="voice"){
              $file_type = '.amr';
