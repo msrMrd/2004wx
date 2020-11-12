@@ -24,27 +24,28 @@ class TestController extends Controller
             if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
                 $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库9
             }
-            if($obj->EventKey=="V1001_TODAY_MUSIC"){
-                $key=$obj->FromUserName;
-                file_put_contents("as.ss",$key);
-                $time=date("Y-m-d",time());
-                $date=Redis::zrange($key,0,-1);
-                if($date){
-                    $date=$date[0];
+            if($obj->EventKey=="V1001_TODAY_MUSIC") {
+                $key = $obj->FromUserName;
+                file_put_contents("as.ss", $key);
+                $time = date("Y-m-d", time());
+                $date = Redis::zrange($key, 0, -1);
+                if ($date) {
+                    $date = $date[0];
                 }
-                if($date == $time){
-                    $content= "今天已经签到了！";
-                }else {
-                    $zcard=Redis::zcard($key);   //查询个数
-                    if($zcard >=1){
-                        Redis::zremrangebyrank($key,0,0);
+                if ($date == $time) {
+                    $content = "今天已经签到了！";
+                } else {
+                    $zcard = Redis::zcard($key);   //查询个数
+                    if ($zcard >= 1) {
+                        Redis::zremrangebyrank($key, 0, 0);
                     }
-                    $keys =json_decode(json_encode($obj),true);
-                    $keys=$keys['FromUserName'];
-                    $zinctby=Redis::zincrby($keys,1,$keys);
-                    $zadd=Redis::zadd($keys,$zinctby,$time);
-                    $content="签到成功 你的积累积分有".$zinctby."天!";
+                    $keys = json_decode(json_encode($obj), true);
+                    $keys = $keys['FromUserName'];
+                    $zinctby = Redis::zincrby($keys, 1, $keys);
+                    $zadd = Redis::zadd($keys, $zinctby, $time);
+                    $content = "签到成功 你的积累积分有" . $zinctby . "天!";
                 }
+
             }
                 switch($obj->MsgType){
                     case "event":
@@ -133,7 +134,6 @@ class TestController extends Controller
                        echo $this->text($obj,$content);
                         break;
                 }
-
 
         }
     }
