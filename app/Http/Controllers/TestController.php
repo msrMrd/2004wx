@@ -19,11 +19,12 @@ class TestController extends Controller
 //
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
                $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
-//            file_put_contents("wx2004.txt",$xml,FILE_APPEND);
+            file_put_contents("wx2004.txt",$xml,FILE_APPEND);
+
             if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
                 $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库9
             }
-            if($obj->EventKey="V1001_TODAY_MUSIC"){
+            if($obj->EventKey=="V1001_TODAY_MUSIC"){
                 $key=$obj->FromUserName;
                 $time=date("Y-m-d",time());
                 $date=Redis::zrange($key,0,-1);
