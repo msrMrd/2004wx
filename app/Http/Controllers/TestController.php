@@ -21,9 +21,9 @@ class TestController extends Controller
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
                $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
 //            file_put_contents("wx2004.txt",$xml,FILE_APPEND);
-//            if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
-//                $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库9
-//            }
+            if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
+                $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库9
+            }
                 switch($obj->MsgType){
                     case "event":
                         //关注
@@ -32,6 +32,7 @@ class TestController extends Controller
                             $AccessToken=$this->getAccesstoken();   //获取token
                             $url="https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$AccessToken."&openid=".$openid."&lang=zh_CN";
 //                            dd($url);
+                            file_put_contents('data.da',$url);
                             $user=file_get_contents($url);    //获取第三方 的数据
                             $user=json_decode($user,true);
                             //查到了
