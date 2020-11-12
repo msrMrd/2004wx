@@ -21,9 +21,6 @@ class TestController extends Controller
             $xml=file_get_contents("php://input");//获取微信公众平台传过来的信息
                $obj=simplexml_load_string($xml,"SimpleXMLElement",LIBXML_NOCDATA);//将一个xml格式的对象
 //            file_put_contents("wx2004.txt",$xml,FILE_APPEND);
-//            if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
-//                $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库9
-//            }
                 switch($obj->MsgType){
                     case "event":
                         //关注
@@ -113,11 +110,10 @@ class TestController extends Controller
                         }
                        echo $this->text($obj,$content);
                         break;
-//
-//                    case "image":
-//
-//                        break;
                 }
+            if($obj->Event!="subscribe" && $obj->Event!="unsubscribe"){   //不是关注 也不是取消关注的
+                $this->typeContent($obj);         //先调用这方法 判断是什么类型 ，在添加数据库9
+            }
 
         }
     }
@@ -292,10 +288,10 @@ class TestController extends Controller
              $data["media_id"]=$obj->MediaId;
 
          }
-//         //文本
-//         if($obj->MsgType=="text"){
-//             $data["content"]=$obj->Content;
-//         }
+         //文本
+         if($obj->MsgType=="text"){
+             $data["content"]=$obj->Content;
+         }
          //音频
          if($obj->MsgType=="voice"){
              $file_type = '.amr';
@@ -308,7 +304,7 @@ class TestController extends Controller
 
 
      }else{
-
+        return $res;
      }
 
      return true;
