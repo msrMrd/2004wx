@@ -309,6 +309,7 @@ class TestController extends Controller
          }
 //         文本
          if($obj->MsgType=="text"){
+             $file_type = '.txt';
              $data["content"]=$obj->Content;
          }
          //音频
